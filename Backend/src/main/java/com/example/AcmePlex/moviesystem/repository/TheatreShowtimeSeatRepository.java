@@ -81,7 +81,8 @@ public class TheatreShowtimeSeatRepository {
 
     public List<Showtime> findShowtimesByMovieAndTheatre(int movie_id, int theatre_id)
     {
-        String sql = "SELECT * from showtime where movie_id = ? AND theatre_id = ?";
+        String sql = "SELECT * from showtime where movie_id = ? AND theatre_id = ? "
+        + "AND start_time BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 14 DAY) ORDER BY start_time";
         return jdbcTemplate.query(sql, showtimeRowMapper, movie_id, theatre_id);
     }
 
