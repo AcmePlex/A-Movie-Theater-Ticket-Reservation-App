@@ -1,14 +1,13 @@
-package com.example.AcmePlex.moviesystem.controller;
+package com.example.acmeplex.moviesystem.controller;
 
-import com.example.AcmePlex.moviesystem.model.Genre;
-import com.example.AcmePlex.moviesystem.model.Theatre;
-import com.example.AcmePlex.moviesystem.model.vo.MovieDetailedView;
-import com.example.AcmePlex.moviesystem.model.Showtime;
-import com.example.AcmePlex.moviesystem.service.MovieService;
-import com.example.AcmePlex.moviesystem.service.ShowtimeService;
-import com.example.AcmePlex.moviesystem.service.TheatreService;
+import com.example.acmeplex.moviesystem.model.Genre;
+import com.example.acmeplex.moviesystem.model.Theatre;
+import com.example.acmeplex.moviesystem.model.vo.MovieDetailedView;
+import com.example.acmeplex.moviesystem.model.Showtime;
+import com.example.acmeplex.moviesystem.service.MovieService;
+import com.example.acmeplex.moviesystem.service.ShowtimeService;
+import com.example.acmeplex.moviesystem.service.TheatreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

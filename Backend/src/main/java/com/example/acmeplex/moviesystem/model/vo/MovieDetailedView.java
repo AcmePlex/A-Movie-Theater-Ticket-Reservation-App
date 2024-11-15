@@ -1,8 +1,10 @@
-package com.example.AcmePlex.moviesystem.model.dto;
+package com.example.acmeplex.moviesystem.model.vo;
+
+import com.example.acmeplex.moviesystem.model.dto.MovieGenreDTO;
 
 import java.sql.Date;
 
-public class MovieGenreDTO {
+public class MovieDetailedView {
     private int id;
     private String genre;
     private String title;
@@ -10,18 +12,28 @@ public class MovieGenreDTO {
     private String description;
     private String image;
     private int length;
+    private boolean hasShowtime;
 
-    public MovieGenreDTO() {
+    public int getLength() {
+        return length;
     }
 
-    public MovieGenreDTO(int id, String genre, String title, Date releaseDate, String description, String image, int length) {
-        this.id = id;
-        this.genre = genre;
-        this.title = title;
-        this.releaseDate = releaseDate;
-        this.description = description;
-        this.image = image;
+    public void setLength(int length) {
         this.length = length;
+    }
+
+    public MovieDetailedView(MovieGenreDTO movie) {
+        this.id = movie.getId();
+        this.title = movie.getTitle();
+        this.releaseDate = movie.getReleaseDate();
+        this.description = movie.getDescription();
+        this.image = movie.getImage();
+        this.length = movie.getLength();
+        this.hasShowtime = false;
+        this.genre = movie.getGenre();
+    }
+
+    public MovieDetailedView() {
     }
 
     public int getId() {
@@ -52,8 +64,8 @@ public class MovieGenreDTO {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date release_date) {
-        this.releaseDate = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getDescription() {
@@ -72,11 +84,11 @@ public class MovieGenreDTO {
         this.image = image;
     }
 
-    public int getLength() {
-        return length;
+    public boolean isHasShowtime() {
+        return hasShowtime;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setHasShowtime(boolean hasShowtime) {
+        this.hasShowtime = hasShowtime;
     }
 }

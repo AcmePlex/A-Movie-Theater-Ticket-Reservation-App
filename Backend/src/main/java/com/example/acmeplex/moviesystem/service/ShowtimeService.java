@@ -1,9 +1,9 @@
-package com.example.AcmePlex.moviesystem.service;
+package com.example.acmeplex.moviesystem.service;
 
-import com.example.AcmePlex.moviesystem.model.Showtime;
-import com.example.AcmePlex.moviesystem.model.Theatre;
-import com.example.AcmePlex.moviesystem.model.dto.ShowtimeSeatDTO;
-import com.example.AcmePlex.moviesystem.repository.TheatreShowtimeSeatRepository;
+import com.example.acmeplex.moviesystem.model.Showtime;
+import com.example.acmeplex.moviesystem.model.Theatre;
+import com.example.acmeplex.moviesystem.model.dto.ShowtimeSeatDTO;
+import com.example.acmeplex.moviesystem.repository.TheatreShowtimeSeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

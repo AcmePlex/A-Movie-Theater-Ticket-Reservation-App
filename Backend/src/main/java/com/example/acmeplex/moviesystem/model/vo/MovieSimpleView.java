@@ -1,6 +1,6 @@
-package com.example.AcmePlex.moviesystem.model.vo;
+package com.example.acmeplex.moviesystem.model.vo;
 
-import com.example.AcmePlex.moviesystem.model.Movie;
+import com.example.acmeplex.moviesystem.model.Movie;
 
 public class MovieSimpleView {
     private int id;

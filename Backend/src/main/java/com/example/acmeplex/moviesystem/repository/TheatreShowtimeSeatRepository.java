@@ -1,10 +1,8 @@
-package com.example.AcmePlex.moviesystem.repository;
+package com.example.acmeplex.moviesystem.repository;
 
-import com.example.AcmePlex.moviesystem.model.Movie;
-import com.example.AcmePlex.moviesystem.model.Seat;
-import com.example.AcmePlex.moviesystem.model.Theatre;
-import com.example.AcmePlex.moviesystem.model.Showtime;
-import com.example.AcmePlex.moviesystem.model.dto.ShowtimeSeatDTO;
+import com.example.acmeplex.moviesystem.model.Theatre;
+import com.example.acmeplex.moviesystem.model.Showtime;
+import com.example.acmeplex.moviesystem.model.dto.ShowtimeSeatDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

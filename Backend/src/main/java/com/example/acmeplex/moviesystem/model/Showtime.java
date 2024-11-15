@@ -1,4 +1,4 @@
-package com.example.AcmePlex.moviesystem.model;
+package com.example.acmeplex.moviesystem.model;
 
 import java.sql.Timestamp;
 

@@ -1,10 +1,8 @@
-package com.example.AcmePlex.moviesystem.model.vo;
-
-import com.example.AcmePlex.moviesystem.model.dto.MovieGenreDTO;
+package com.example.acmeplex.moviesystem.model.dto;
 
 import java.sql.Date;
 
-public class MovieDetailedView {
+public class MovieGenreDTO {
     private int id;
     private String genre;
     private String title;
@@ -12,28 +10,18 @@ public class MovieDetailedView {
     private String description;
     private String image;
     private int length;
-    private boolean hasShowtime;
 
-    public int getLength() {
-        return length;
+    public MovieGenreDTO() {
     }
 
-    public void setLength(int length) {
+    public MovieGenreDTO(int id, String genre, String title, Date releaseDate, String description, String image, int length) {
+        this.id = id;
+        this.genre = genre;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.description = description;
+        this.image = image;
         this.length = length;
-    }
-
-    public MovieDetailedView(MovieGenreDTO movie) {
-        this.id = movie.getId();
-        this.title = movie.getTitle();
-        this.releaseDate = movie.getReleaseDate();
-        this.description = movie.getDescription();
-        this.image = movie.getImage();
-        this.length = movie.getLength();
-        this.hasShowtime = false;
-        this.genre = movie.getGenre();
-    }
-
-    public MovieDetailedView() {
     }
 
     public int getId() {
@@ -64,8 +52,8 @@ public class MovieDetailedView {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseDate(Date release_date) {
+        this.releaseDate = release_date;
     }
 
     public String getDescription() {
@@ -84,11 +72,11 @@ public class MovieDetailedView {
         this.image = image;
     }
 
-    public boolean isHasShowtime() {
-        return hasShowtime;
+    public int getLength() {
+        return length;
     }
 
-    public void setHasShowtime(boolean hasShowtime) {
-        this.hasShowtime = hasShowtime;
+    public void setLength(int length) {
+        this.length = length;
     }
 }

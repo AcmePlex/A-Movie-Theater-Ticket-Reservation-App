@@ -1,4 +1,4 @@
-package com.example.AcmePlex.moviesystem.config;
+package com.example.acmeplex.moviesystem.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;

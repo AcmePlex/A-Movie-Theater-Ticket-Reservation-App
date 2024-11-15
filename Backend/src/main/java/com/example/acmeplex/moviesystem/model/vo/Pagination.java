@@ -1,4 +1,4 @@
-package com.example.AcmePlex.moviesystem.model.vo;
+package com.example.acmeplex.moviesystem.model.vo;
 
 public class Pagination {
     private int currentPage;

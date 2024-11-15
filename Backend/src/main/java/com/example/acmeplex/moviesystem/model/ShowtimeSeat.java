@@ -1,4 +1,4 @@
-package com.example.AcmePlex.moviesystem.model;
+package com.example.acmeplex.moviesystem.model;
 
 public class ShowtimeSeat {
     private int id;

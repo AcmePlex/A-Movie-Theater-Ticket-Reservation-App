@@ -1,8 +1,8 @@
-package com.example.AcmePlex.moviesystem.repository;
+package com.example.acmeplex.moviesystem.repository;
 
-import com.example.AcmePlex.moviesystem.model.Genre;
-import com.example.AcmePlex.moviesystem.model.Movie;
-import com.example.AcmePlex.moviesystem.model.dto.MovieGenreDTO;
+import com.example.acmeplex.moviesystem.model.Genre;
+import com.example.acmeplex.moviesystem.model.Movie;
+import com.example.acmeplex.moviesystem.model.dto.MovieGenreDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
