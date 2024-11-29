@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {CircularProgress, Fab, IconButton, TextField} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment} from '@mui/material';
@@ -11,6 +11,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link, useNavigate } from 'react-router-dom';
 import LoadingScreen from './LoadingScreen';
 import MovieNews from './MoiveNews';
+import { AuthContext } from '../context/AuthContext';
 function SearchBar({search, handleValueChange, handleSearch}) {
     const handleKeyDown = async (event) => {
         if(event.key === 'Enter') {
@@ -212,9 +213,16 @@ function MovieBrowser() {
     const [selectedGenre, setSelectedGenre] = useState(0);
     const [search, setSearch] = useState("");
     const [movieNewsDialogOpen, setMovieNewsDialogOpen] = useState(false);
+    const {auth} = useContext(AuthContext);
 
     const handleOpenMovieNewsDialog = () => setMovieNewsDialogOpen(true);
     const handleCloseMovieNewsDialog = () => setMovieNewsDialogOpen(false);
+
+    useEffect(() => {
+        if(auth?.token) {
+            setMovieNewsDialogOpen(true);
+        }
+    }, [auth?.token])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -328,7 +336,7 @@ function MovieBrowser() {
             genres={genres} 
             selectedGenre={selectedGenre} 
             handleClick={handleClick}/>
-            <Fab
+            <Fab 
                 color="primary"
                 aria-label="add"
                 onClick={handleOpenMovieNewsDialog}               
@@ -336,6 +344,7 @@ function MovieBrowser() {
                     position: 'fixed',
                     bottom: 16,
                     right: 16,
+                    visibility: auth?.token ? 'visible' : 'hidden'
                 }}
                 >
                 <NotificationsIcon />
