@@ -53,8 +53,8 @@ function NavBar() {
   const handleLogin = async () => {
     try {
       const response = await apiLogin(email, password);
-
-      if (response?.success && response.token) {
+      console.log('Login response:', response);
+      if (response?.token) {
         authLogin(response.token); // Update AuthContext with token
         setOpen(false);
         setEmail('');

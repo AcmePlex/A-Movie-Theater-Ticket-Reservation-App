@@ -27,7 +27,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
     
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -55,6 +55,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             // Log the error
+            System.out.println("token error");
         }
         
         filterChain.doFilter(request, response);

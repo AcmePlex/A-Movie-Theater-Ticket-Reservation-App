@@ -93,7 +93,7 @@ export const ticketPayment = async (data) => {
 }
 
 export const createRegisteredUser = async (data) => {
-  const response = await api.post(`createregistereduser`, data);
+  const response = await api.post(`/api/registered-users/createregistereduser`, data);
   console.log(response.data);
   return response.data;
 }
@@ -104,7 +104,11 @@ export const membershipPayment = async (email, method) => {
 }
 
 export const login = async (email, password) => {
-  const response = await api.put(`/api/registered-users/login/${email}/password/${password}`); // TODO: Match the route from backend
+  const request = {
+    email: email,
+    password: password
+  }
+  const response = await api.post(`/api/auth/login`, request); // TODO: Match the route from backend
   return response.data;
 }
 

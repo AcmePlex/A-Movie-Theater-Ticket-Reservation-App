@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.example.acmeplex.usersystem.security.UserDetailsServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,9 @@ public class RegisteredUserService {
     // Injecting ModelMapper to handle DTO-Entity conversions
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     /**
      * Converts a RegisteredUser entity to its corresponding DTO.
@@ -96,9 +100,9 @@ public class RegisteredUserService {
         registeredUser.setSubscriptionExpirationDate(expirationDate);
 
         // Save the entity to the database
-        RegisteredUser savedRegisteredUser = registeredUserRepository.save(registeredUser);
+        RegisteredUser savedRegisteredUser = userDetailsService.addUser(registeredUser);
 
-        String success="Registered user created successfully with email: {}"+ savedRegisteredUser.getEmail();
+        String success="Registered user created successfully with email: "+ savedRegisteredUser.getEmail();
 
         logger.info(success);
 
