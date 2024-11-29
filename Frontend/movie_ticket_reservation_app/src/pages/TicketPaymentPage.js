@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { bookTickets, ticketPayment } from '../api/Services';
+import { useNavigate } from 'react-router-dom';
 
 function TicketPaymentPage() {
     const location=useLocation();
@@ -16,6 +17,8 @@ function TicketPaymentPage() {
     const [method, setCardType] = useState('credit');
 
     const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+
+    const navigate = useNavigate();
 
 
     const { ids, totalPrice} = location.state || { ids: [], totalPrice: 0};
@@ -58,6 +61,7 @@ function TicketPaymentPage() {
 
     const handlePaymentDialogClose = () => {
         setDialogOpen(false);
+        navigate('/');
     };
 
     return (
