@@ -59,7 +59,6 @@ function NavBar() {
         setOpen(false);
         setEmail('');
         setPassword('');
-        navigate('/dashboard'); // Navigate to Dashboard after login
       } else if (response?.expired) {
         alert(response.error);
       } else if (response?.wrong) {

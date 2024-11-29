@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosInstance from '../utils/axiosInstance'
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -44,7 +45,7 @@ export const getTheatres = async (movieId) => {
 }
 
 export const getShowtimes = async (movieId, theatreId) => {
-  const response = await api.get(`/showtimes/movie/${movieId}/theatre/${theatreId}`)
+  const response = await axiosInstance.get(`/showtimes/movie/${movieId}/theatre/${theatreId}`)
   return response.data;
 }
 
@@ -114,7 +115,7 @@ export const login = async (email, password) => {
 
 
 export const getMovieNews = async () => {
-  const response = await api.get(`/movie-news`);
+  const response = await axiosInstance.get('/movie-news');
   return response.data;
 }
 

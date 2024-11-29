@@ -121,8 +121,8 @@ public class TheatreShowtimeSeatRepository {
     {
         String sql = "SELECT * from showtime where movie_id = ? AND theatre_id = ? AND DATE(start_time) BETWEEN  CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY) AND CURRENT_TIME>public_announcement_time ORDER BY start_time";
         String sqlForRegisteredUser = "SELECT * from showtime where movie_id = ? AND theatre_id = ? AND DATE(start_time) BETWEEN  CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY) ORDER BY start_time";
-        if(userLoggedIn) return jdbcTemplate.query(sql, showtimeRowMapper, movie_id, theatre_id);
-        return jdbcTemplate.query(sqlForRegisteredUser, showtimeRowMapper, movie_id, theatre_id);
+        if(userLoggedIn) return jdbcTemplate.query(sqlForRegisteredUser, showtimeRowMapper, movie_id, theatre_id);
+        return jdbcTemplate.query(sql, showtimeRowMapper, movie_id, theatre_id);
     }
 
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Set up an Axios instance that automatically includes the JWT token in headers
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8080/api/', // Adjust the base URL
+    baseURL: 'http://localhost:8080', // Adjust the base URL
     headers: { 'Content-Type': 'application/json' }
 });
 
