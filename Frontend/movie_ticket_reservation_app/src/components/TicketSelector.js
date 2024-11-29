@@ -167,7 +167,8 @@ function ShowtimeSelector({showtimes, selected, setShowtime, handleBuyTickets, h
                             <Button key={index}
                             variant={selectedDate===date?"contained":"outlined"}
                             onClick={(event)=>{setShowtimeList(showtimes[date]); setSelectedDate(date)}}
-                            sx={{paddingLeft: 2, paddingRight: 2}}
+                            sx={{width: 100, paddingLeft: 2, paddingRight: 2}}
+                            fullWidth
                             >
                                 {date}
                             </Button>

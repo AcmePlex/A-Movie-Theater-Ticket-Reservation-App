@@ -18,6 +18,7 @@ public class JwtUtils {
     
     public String generateJwtToken(Authentication authentication) {
         String email = authentication.getName();
+        System.out.println("authentication name: " + email);
         
         return Jwts.builder()
                 .setSubject(email)

@@ -8,6 +8,7 @@ function MovieNews({open, onClose}) {
   const navigate = useNavigate();
   const [movieNews, setMovieNews] = useState([]);
   const viewMovieDetail = (id) => { navigate(`/movie/${id}`); };
+  const [loading, setLoading] = useState(false);
 
   const convertToDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -27,14 +28,19 @@ function MovieNews({open, onClose}) {
     // Fetch movie news here
     const fetchMovieNews = async () => {
       try {
+        setLoading(true);
         const data = await getMovieNews();
         setMovieNews(data);
       } catch (error) {
         console.error('Error fetching movie news:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchMovieNews();
-  }, []);
+    if(open) {
+      fetchMovieNews();
+    }
+  }, [open]);
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -43,7 +49,9 @@ function MovieNews({open, onClose}) {
         <Typography variant="body1" color="success">
           Some showtimes are offering early tickets!
         </Typography>
-        <List>
+        {
+          !loading &&
+          <List>
           {movieNews.map((news, index) => (
             <ListItem key={index}>
               <Box sx={{display: 'flex', alignItems: 'center', padding: '5px', gap: 1}}>
@@ -65,6 +73,7 @@ function MovieNews({open, onClose}) {
             </ListItem>
           ))}
         </List>
+        }
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">

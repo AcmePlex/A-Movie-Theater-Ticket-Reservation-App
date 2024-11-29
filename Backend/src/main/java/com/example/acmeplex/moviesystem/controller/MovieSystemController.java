@@ -5,8 +5,10 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.example.acmeplex.moviesystem.dto.MovieNewsDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,9 +88,14 @@ public class MovieSystemController {
     }
 
     @GetMapping("/showtimes/movie/{movie_id}/theatre/{theatre_id}")
-    public ResponseEntity<Map<String, List<ShowtimeDTO>>> getShowtimesByMovieAndTheatre(@PathVariable int movie_id, @PathVariable int theatre_id) {
+    public ResponseEntity<Map<String, List<ShowtimeDTO>>> getShowtimesByMovieAndTheatre(HttpServletRequest request, @PathVariable int movie_id, @PathVariable int theatre_id) {
         //need to find out whether user is logged in
-        return ResponseEntity.ok(showtimeService.getShowtimeList(movie_id, theatre_id, false));
+        String header = request.getHeader("Authorization");
+        String token = "";
+        if (header != null && header.startsWith("Bearer ")) {
+            token =  header.substring(7); // Remove "Bearer " prefix
+        }
+        return ResponseEntity.ok(showtimeService.getShowtimeList(movie_id, theatre_id, !token.isEmpty()));
     }
 
     @GetMapping("/seats/showroom/{showroomId}/showtime/{showtimeId}")
@@ -114,6 +121,7 @@ public class MovieSystemController {
 
     @GetMapping("/movie-news")
     public ResponseEntity<List<MovieNewsDTO>> getMovieNews() {
+        System.out.println("movie news requested");
         return ResponseEntity.ok(showtimeService.getMovieNews());
     }
 }

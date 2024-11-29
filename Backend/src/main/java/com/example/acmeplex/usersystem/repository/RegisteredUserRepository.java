@@ -121,13 +121,13 @@ public class RegisteredUserRepository {
 
     // Get the expiration date of a RegisteredUser
     public Date getExpirationDate(String email) {
-        String sql="SELECT subscription_expiration_date FROM registered_users WHERE email=?";
+        String sql="SELECT subscription_expiration_date FROM registered_user WHERE email=?";
         return jdbcTemplate.queryForObject(sql, Date.class, email);
     }
 
     // Update the expiration date of a RegisteredUser
     public void updateExpirationDate(String email, Date expirationDate) {
-        String sql="UPDATE registered_users SET subscription_expiration_date=? WHERE email=?";
+        String sql="UPDATE registered_user SET subscription_expiration_date=? WHERE email=?";
         jdbcTemplate.update(sql, expirationDate, email);
     }
 }
