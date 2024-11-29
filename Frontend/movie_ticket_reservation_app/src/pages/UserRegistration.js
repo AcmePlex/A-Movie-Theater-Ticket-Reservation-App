@@ -46,6 +46,7 @@ function UserRegistration() {
             password,
             address,
             cardNumber
+        : cardNumber.slice(-4)
         };
         console.log('Registration Data:', registrationData);
 

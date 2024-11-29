@@ -5,15 +5,15 @@ public class LoginRequest {
     private String password;
 
     // Getters and Setters
-    public String getUsername() {
+    public String getEmail() {
         return email;
     }
 
-    public void setUsername(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPassword() { 
+    public String getPassword() {
         return password; 
     }
 
