@@ -153,7 +153,7 @@ public class TicketService {
             emailDetails.setRecipient(ticket.get().getHolderEmail());
             emailDetails.setSubject("Ticket cancelled");
             String content = String.format("Dear user,\n" +
-                    "Your ticket (%s) has been successfully cancelled.", ticketNumber);
+                    "Your ticket (%s) has been successfully cancelled. You got %.2f credits.", ticketNumber, creditPoints.doubleValue());
             emailDetails.setMsgBody(content);
             result = emailService.sendSimpleEmail(emailDetails);
             if (result!=0) {

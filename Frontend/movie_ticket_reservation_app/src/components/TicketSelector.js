@@ -497,7 +497,7 @@ function TicketSelector() {
             flexDirection: 'row',
             gap: 15,
             justifyContent: 'center',
-            mt: 15
+            mt: 5
         }}>
             <MovieOverview movie={movie}/>
             <BookingStepper 
