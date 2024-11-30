@@ -103,7 +103,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/book/**").permitAll()
                 
                 // Movie System Protected Endpoints
-                .requestMatchers(HttpMethod.PUT, "/membershippayment/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/membershippayment/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/movie-news").authenticated()
                 
                 // Payment Endpoints - Require authentication
