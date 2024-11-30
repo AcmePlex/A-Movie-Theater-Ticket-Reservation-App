@@ -54,13 +54,13 @@ function MovieNews({open, onClose}) {
           <List>
           {movieNews.map((news, index) => (
             <ListItem key={index}>
-              <Box sx={{display: 'flex', alignItems: 'center', padding: '5px', gap: 1}}>
+              <Box sx={{display: 'flex', alignItems: 'center', padding: '5px', gap: 1, width: '100%'}}>
                 <Card sx={{borderRadius: 0}}>
                   <CardMedia
                     component="img"
                     image={news.image}
                     alt={news.movieTitle}
-                    sx={{ width: 120, height: 140 }}
+                    sx={{ width: 100, height: 140 }}
                   />
                 </Card>
                 <Box sx={{display: 'flex', flexDirection: 'column', padding: '5px', gap: 1}}>
@@ -68,7 +68,9 @@ function MovieNews({open, onClose}) {
                   <Typography variant="body2">{`${convertToDate(news.startTime)} \t ${convertToTime(news.startTime)} - ${convertToTime(news.endTime)}`}</Typography>
                   <Typography variant="body2">{news.theatreName}</Typography>
                 </Box>
-                <Button variant="contained" color="primary" onClick={()=>{viewMovieDetail(news.movieId)}}>Take a look</Button>
+                <Box sx={{marginLeft: 'auto'}}>
+                  <Button sx={{whiteSpace: 'nowrap'}} variant="contained" color="primary" onClick={()=>{viewMovieDetail(news.movieId)}}>Take a look</Button>
+                </Box>       
               </Box>
             </ListItem>
           ))}

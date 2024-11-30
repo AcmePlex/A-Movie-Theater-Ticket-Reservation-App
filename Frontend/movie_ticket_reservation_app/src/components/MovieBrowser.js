@@ -321,7 +321,7 @@ function MovieBrowser() {
         <Box sx={{
             display: 'flex', 
             flexDirection: 'row-reverse', 
-            mt: '100px',
+            mt: '80px',
             ml: '100px',
             }}>   
             <MovieDisplayer 
