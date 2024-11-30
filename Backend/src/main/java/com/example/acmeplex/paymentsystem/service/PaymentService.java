@@ -4,7 +4,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.acmeplex.moviesystem.repository.TicketRepository;
+import com.example.acmeplex.paymentsystem.dto.CardDTO;
 import com.example.acmeplex.paymentsystem.dto.TicketPaymentDTO;
+import com.example.acmeplex.paymentsystem.entity.Card;
 import com.example.acmeplex.paymentsystem.entity.CreditRecord;
 import com.example.acmeplex.paymentsystem.entity.Payment;
+import com.example.acmeplex.paymentsystem.repository.CardRepository;
 import com.example.acmeplex.paymentsystem.repository.CreditRecordRepository;
 import com.example.acmeplex.paymentsystem.repository.PaymentRepository;
 import com.example.acmeplex.usersystem.service.RegisteredUserService;
@@ -26,13 +31,15 @@ public class PaymentService {
     private final CreditRecordRepository creditRecordRepository;
     private final TicketRepository ticketRepository;
     private final RegisteredUserService registeredUserService;
+    private CardRepository cardRepository;
 
     @Autowired
-    public PaymentService(PaymentRepository paymentRepository, CreditRecordRepository creditRecordRepository, TicketRepository ticketRepository, RegisteredUserService registeredUserService) {
+    public PaymentService(PaymentRepository paymentRepository, CreditRecordRepository creditRecordRepository, TicketRepository ticketRepository, RegisteredUserService registeredUserService, CardRepository cardRepository) {  
         this.paymentRepository = paymentRepository;
         this.creditRecordRepository = creditRecordRepository;
         this.ticketRepository = ticketRepository;
         this.registeredUserService = registeredUserService;
+        this.cardRepository = cardRepository;
     }
 
     @Transactional
@@ -91,7 +98,8 @@ public class PaymentService {
                 paymentRepository.addPaymentTicket(payment, ticketNumber , "paid");
             }
 
-            return "Success:"+String.valueOf(totalPayment)+" processed successfully."+String.valueOf(creditUsed)+" credit points used."+String.valueOf(remainingPayment)+" remaining payment charged to " + ticketPaymentDTO.getMethod()+ "card. ";        
+           
+            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. Remaining Payment of $"+String.valueOf(remainingPayment)+"charged to " + ticketPaymentDTO.getMethod()+ "card. ";         
         } catch (RuntimeException exception) {
             return "error: " + exception.getMessage();
         }
@@ -131,7 +139,7 @@ public class PaymentService {
             Payment payment = new Payment(email, method, newPaymentId, totalPayment, "membership");
             paymentRepository.addPayment(payment);
 
-            return "Success:"+String.valueOf(totalPayment)+" processed successfully."+String.valueOf(creditUsed)+" credit points used."+String.valueOf(remainingPayment)+" remaining payment charged to " + method+ "card. "; 
+            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. Remaining Payment of $"+String.valueOf(remainingPayment)+"charged to " + method+ "card. "; 
         } catch (RuntimeException exception) {
             return "error: " + exception.getMessage();
         }
@@ -191,6 +199,21 @@ public class PaymentService {
     @Transactional
     public Boolean validTicket(String ticketNumber){
         return paymentRepository.getPaymentsByEmail(ticketNumber).isEmpty();
+    }
+    @Transactional
+    public Map<String, Object> addCard(CardDTO cardDTO) {
+        Map<String, Object> response = new HashMap<>();
+        System.out.println(cardDTO.getCardNumber());
+        try {
+            Card card = cardDTO.toCard();
+            cardRepository.insert(card);
+            response.put("success", true);
+            response.put("message", "Credit card added successfully");
+        } catch (RuntimeException exception) {
+            response.put("error", true);
+            response.put("message", exception.getMessage());
+        }
+        return response;
     }
     
 }

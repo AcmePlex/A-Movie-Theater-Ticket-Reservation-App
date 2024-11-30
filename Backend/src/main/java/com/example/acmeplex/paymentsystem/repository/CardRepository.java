@@ -1,10 +1,11 @@
-package com.example.acmeplex.usersystem.repository;
+package com.example.acmeplex.paymentsystem.repository;
 
-import com.example.acmeplex.usersystem.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.example.acmeplex.paymentsystem.entity.Card;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,8 +45,9 @@ public class CardRepository {
      * @return the inserted Card
      */
     public Card insert(Card card) {
-        String sql = "INSERT INTO card (email, card_number, expire_year, expire_month, cvv, name, type) " +
+        String sql = "INSERT INTO card (registered_user_email, card_number, expire_year, expire_month, CVV, name, type) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        System.out.println(card.getName());
         jdbcTemplate.update(sql, 
                 card.getEmail(), 
                 card.getCardNumber(), 

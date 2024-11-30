@@ -1,5 +1,7 @@
 package com.example.acmeplex.paymentsystem.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.acmeplex.moviesystem.dto.TicketBookingDTO;
+import com.example.acmeplex.paymentsystem.dto.CardDTO;
 import com.example.acmeplex.paymentsystem.dto.TicketPaymentDTO;
 import com.example.acmeplex.paymentsystem.service.PaymentService;
 
@@ -35,5 +38,11 @@ public class PaymentController {
     @PostMapping("/totalprice")
     public ResponseEntity<String> totalTicketPrice(@RequestBody TicketBookingDTO ticketBookingDTO) {
         return ResponseEntity.ok(paymentService.priceCalculation(ticketBookingDTO.getIds()));
+    }
+
+    @PostMapping("/addcard")
+    public ResponseEntity<Map<String, Object>> addCard(@RequestBody CardDTO cardInfo) {
+        System.out.println(cardInfo.getName());
+        return ResponseEntity.ok(paymentService.addCard(cardInfo));
     }
 }

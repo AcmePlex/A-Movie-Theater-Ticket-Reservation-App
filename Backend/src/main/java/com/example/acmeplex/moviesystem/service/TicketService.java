@@ -161,7 +161,7 @@ public class TicketService {
             }
 
             response.put("success", true);
-            response.put("message", String.format("Ticket %s cancelled successfully.", ticketNumber));
+            response.put("message", String.format("Ticket %s cancelled successfully. You got %.2f credits.", ticketNumber, creditPoints.doubleValue()));
             response.put("credits", creditPoints);
             return response;
         } catch (RuntimeException exception) {

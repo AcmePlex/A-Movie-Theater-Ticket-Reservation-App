@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio,Snackbar, Alert  } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { bookTickets, ticketPayment } from '../api/Services';
 import { useNavigate } from 'react-router-dom';
@@ -17,12 +17,16 @@ function TicketPaymentPage() {
     const [method, setCardType] = useState('credit');
 
     const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+    const [responseMessage, setResponseMessage] = useState(''); // Add state for response message
+
 
     const navigate = useNavigate();
 
 
     const { ids, totalPrice} = location.state || { ids: [], totalPrice: 0};
-
 
     const handleSubmit = () => {
         setConfirmationDialogOpen(true);
@@ -32,8 +36,11 @@ function TicketPaymentPage() {
         setConfirmationDialogOpen(false);
     };
 
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
+
     const handlePayment = async () => {
-        // Implement the logic to submit the payment data to the backend
         const paymentData = {
             ids,
             email,
@@ -42,20 +49,35 @@ function TicketPaymentPage() {
         };
         console.log('Payment Data:', paymentData);
 
-        const requestData = {  
+        const requestData = {
             ids,
             email
         };
 
         try {
             const data = await bookTickets(requestData);
-            const response = await ticketPayment(paymentData);
             console.log(data);
-            console.log(response);
-            setDialogOpen(true);
-            setConfirmationDialogOpen(false);
+            if(!data?.error){
+                const response = await ticketPayment(paymentData);
+
+                console.log(response);
+                setResponseMessage(response|| 'Your payment has been processed successfully.'); // Set response message
+                setSnackbarMessage('Payment successful. Confirmation Email Set');
+                setSnackbarSeverity('success');
+                setSnackbarOpen(true);
+                setDialogOpen(true);
+                setConfirmationDialogOpen(false);
+            }else{
+                setResponseMessage('Failed to book ticket. Please contact admin') // Set response message
+                setDialogOpen(true);
+                setConfirmationDialogOpen(false);
+            }
+            
         } catch (error) {
             console.error('Error processing payment:', error);
+            setSnackbarMessage('Error processing payment. Please try again.');
+            setSnackbarSeverity('error');
+            setSnackbarOpen(true);
         }
     };
 
@@ -163,7 +185,7 @@ function TicketPaymentPage() {
                 <DialogTitle>Payment Successful</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Your payment has been processed successfully.
+                        {responseMessage} {/* Display response message */}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -172,6 +194,11 @@ function TicketPaymentPage() {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 }
