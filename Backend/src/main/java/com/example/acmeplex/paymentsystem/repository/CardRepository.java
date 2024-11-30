@@ -45,8 +45,9 @@ public class CardRepository {
      * @return the inserted Card
      */
     public Card insert(Card card) {
-        String sql = "INSERT INTO card (email, card_number, expire_year, expire_month, cvv, name, type) " +
+        String sql = "INSERT INTO card (registered_user_email, card_number, expire_year, expire_month, CVV, name, type) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        System.out.println(card.getName());
         jdbcTemplate.update(sql, 
                 card.getEmail(), 
                 card.getCardNumber(), 

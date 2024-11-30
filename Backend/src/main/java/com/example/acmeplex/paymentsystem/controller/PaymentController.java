@@ -42,7 +42,7 @@ public class PaymentController {
 
     @PostMapping("/addcard")
     public ResponseEntity<Map<String, Object>> addCard(@RequestBody CardDTO cardInfo) {
-        System.out.println("1111");
+        System.out.println(cardInfo.getName());
         return ResponseEntity.ok(paymentService.addCard(cardInfo));
     }
 }

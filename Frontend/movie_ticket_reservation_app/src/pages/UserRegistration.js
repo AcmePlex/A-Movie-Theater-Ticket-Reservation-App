@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio, Snackbasr, Alert  } from '@mui/material';
 import { addCard, createRegisteredUser, membershipPayment } from '../api/Services';
 
 function UserRegistration() {
@@ -56,8 +56,8 @@ function UserRegistration() {
             expireYear,
             expireMonth,
             cvv,
-            nameOnCard,
-            method
+            name:nameOnCard,
+            type:method
         };
 
         try {
@@ -67,8 +67,8 @@ function UserRegistration() {
                 const cardResponse = await addCard(cardData);
                 console.log(response);
                 console.log(paymentResponse);
-                //console.log(cardResponse);
-                setMessage("Account Registered! "+paymentResponse);
+                console.log(cardResponse);
+                setMessage(" "+email+" account Registered! "+paymentResponse);
                 setDialogOpen(true);
                 setConfirmationDialogOpen(false);
             } else if (response?.duplicate) {

@@ -26,9 +26,8 @@ USE `acmeplex`;
 -- ----------------------------
 DROP TABLE IF EXISTS `card`;
 CREATE TABLE `card`  (
-  `id` int NOT NULL AUTO_INCREMENT,
   `registered_user_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `number` int NOT NULL,
+  `number` varchar(255) NOT NULL,
   `expire_month` int NOT NULL,
   `expire_year` int NOT NULL,
   `CVV` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
