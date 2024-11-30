@@ -1,10 +1,11 @@
-package com.example.acmeplex.usersystem.repository;
+package com.example.acmeplex.paymentsystem.repository;
 
-import com.example.acmeplex.usersystem.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.example.acmeplex.paymentsystem.entity.Card;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

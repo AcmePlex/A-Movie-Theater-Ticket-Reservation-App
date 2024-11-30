@@ -1,6 +1,8 @@
-package com.example.acmeplex.usersystem.model;
+package com.example.acmeplex.paymentsystem.dto;
 
-public class Card {
+import com.example.acmeplex.paymentsystem.entity.Card;
+
+public class CardDTO {
 
     private String email;
     private String cardNumber;
@@ -10,7 +12,10 @@ public class Card {
     private String type;
     private String cvv;
 
-    public Card(String email, String cardNumber, int expireYear, int expireMonth, String cvv, String name, String type) {
+    public CardDTO() {
+    }
+
+    public CardDTO(String email, String cardNumber, int expireYear, int expireMonth, String cvv, String name, String type) {
         this.email = email;
         this.cardNumber = cardNumber;
         this.expireYear = expireYear;
@@ -76,6 +81,21 @@ public class Card {
         this.cvv = cvv;
     }
 
+    // Method to convert CardDTO to Card
+    public Card toCard() {
+        return new Card(email, cardNumber, expireYear, expireMonth, cvv, name, type);
+    }
 
-    
+    // Method to create CardDTO from Card
+    public static CardDTO fromCard(Card card) {
+        return new CardDTO(
+            card.getEmail(),
+            card.getCardNumber(),
+            card.getExpireYear(),
+            card.getExpireMonth(),
+            card.getCvv(),
+            card.getName(),
+            card.getType()
+        );
+    }
 }

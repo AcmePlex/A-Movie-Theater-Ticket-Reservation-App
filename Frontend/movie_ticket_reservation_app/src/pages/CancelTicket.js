@@ -1,7 +1,7 @@
 import React,{ lazy, useState } from 'react';
 import { cancelTicket } from '../api/Services';
 
-import { Box, Typography, Container, TextField, Button,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Box, Typography, Container, TextField, Button,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, Alert  } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
 function CancelTicketPage() {
@@ -11,6 +11,12 @@ function CancelTicketPage() {
     const [errorDialogOpen, setErrorDialogOpen] = useState(false);
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(false);
+
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+    const [responseMessage, setResponseMessage] = useState(''); // Add state for response message
 
     const issue = async () => {
         // Implement the refund logic here
@@ -22,9 +28,12 @@ function CancelTicketPage() {
                 setErrorDialogOpen(true);
             } else if (data?.success) {
                 //const dataCredit = await issueRefund(ticketNumber);
+                setSnackbarMessage('Ticket canceled successfully. Confirmation email sent.');
+                setSnackbarSeverity('success');
+                setSnackbarOpen(true);
                 setSuccessDialogOpen(true);
             }
-            setResponse(data)
+            setResponse(data.message)
         } catch (error) {
             console.error('aa',error);
         } finally {
@@ -40,6 +49,10 @@ function CancelTicketPage() {
 
     const handleErrorDialogClose = () => {
         setErrorDialogOpen(false);
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
     };
 
     return (
@@ -96,6 +109,11 @@ function CancelTicketPage() {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 }

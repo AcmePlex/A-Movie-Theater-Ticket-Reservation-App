@@ -67,8 +67,8 @@ function UserRegistration() {
                 const cardResponse = await addCard(cardData);
                 console.log(response);
                 console.log(paymentResponse);
-                console.log(cardResponse);
-                setMessage("Account Registered");
+                //console.log(cardResponse);
+                setMessage("Account Registered! "+paymentResponse);
                 setDialogOpen(true);
                 setConfirmationDialogOpen(false);
             } else if (response?.duplicate) {

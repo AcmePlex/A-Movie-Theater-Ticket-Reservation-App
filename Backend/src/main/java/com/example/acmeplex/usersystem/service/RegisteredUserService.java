@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 
-import com.example.acmeplex.usersystem.dto.CardDTO;
+import com.example.acmeplex.paymentsystem.dto.CardDTO;
+import com.example.acmeplex.paymentsystem.entity.Card;
+import com.example.acmeplex.paymentsystem.repository.CardRepository;
 import com.example.acmeplex.usersystem.dto.RegisteredUserDTO;
-import com.example.acmeplex.usersystem.model.Card;
 import com.example.acmeplex.usersystem.model.RegisteredUser;
-import com.example.acmeplex.usersystem.repository.CardRepository;
 import com.example.acmeplex.usersystem.repository.RegisteredUserRepository;
 
 @Service
@@ -34,8 +34,7 @@ public class RegisteredUserService {
     @Autowired
     private RegisteredUserRepository registeredUserRepository;
 
-    @Autowired
-    private CardRepository cardRepository;
+
     
     // Injecting ModelMapper to handle DTO-Entity conversions
     @Autowired
@@ -285,19 +284,7 @@ public class RegisteredUserService {
         }
     }
 
-    public Map<String, Object> addCard(CardDTO cardDTO) {
-        Map<String, Object> response = new HashMap<>();
-        try {
-            Card card = cardDTO.toCard();
-            cardRepository.insert(card);
-            response.put("success", true);
-            response.put("message", "Credit card added successfully");
-        } catch (RuntimeException exception) {
-            response.put("error", true);
-            response.put("message", exception.getMessage());
-        }
-        return response;
-    }
+
 
     
 }
