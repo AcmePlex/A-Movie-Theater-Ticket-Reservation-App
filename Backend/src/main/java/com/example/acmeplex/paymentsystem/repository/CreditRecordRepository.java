@@ -26,9 +26,9 @@ public class CreditRecordRepository {
             return new CreditRecord(
                     rs.getInt("id"),
                     rs.getString("email"),
-                    rs.getDouble("creditPoints"),
-                    rs.getDouble("usedPoints"),
-                    rs.getDate("expirationDate")
+                    rs.getDouble("credit_points"),
+                    rs.getDouble("used_points"),
+                    rs.getDate("expiration_date")
             );
         }
     };

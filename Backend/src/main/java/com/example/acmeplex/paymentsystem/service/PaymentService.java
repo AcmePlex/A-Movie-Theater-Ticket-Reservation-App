@@ -1,5 +1,7 @@
 package com.example.acmeplex.paymentsystem.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -88,18 +90,24 @@ public class PaymentService {
             }
             System.out.println(creditUsed);
             double remainingPayment = totalPayment - creditUsed;
+            if (remainingPayment < 0) {
+                remainingPayment=0;
+            }
+
+            BigDecimal bd = new BigDecimal(remainingPayment);
+            bd = bd.setScale(2, RoundingMode.HALF_EVEN);
 
             int newPaymentId = paymentRepository.getLastPaymentId() + 1;
             Payment payment = new Payment(ticketPaymentDTO.getEmail(), ticketPaymentDTO.getMethod(), newPaymentId, totalPayment, "ticket");
             paymentRepository.addPayment(payment);
-            System.out.println("pay2");
+
             for(Integer showtimeSeatId : ticketPaymentDTO.getIds()) {
                 String ticketNumber = ticketRepository.getTicketNumber(showtimeSeatId);
                 paymentRepository.addPaymentTicket(payment, ticketNumber , "paid");
             }
 
            
-            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. "+ticketPaymentDTO.getMethod()+"card has been charged $"+String.valueOf(remainingPayment)+".";         
+            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. "+ticketPaymentDTO.getMethod()+"card has been charged $"+String.valueOf(bd)+".";         
         } catch (RuntimeException exception) {
             return "error: " + exception.getMessage();
         }
@@ -132,14 +140,19 @@ public class PaymentService {
                     break;
                 }
             }
-
             double remainingPayment = totalPayment - creditUsed;
+            if (remainingPayment < 0) {
+                remainingPayment=0;
+            }
+
+            BigDecimal bd = new BigDecimal(remainingPayment);
+            bd = bd.setScale(2, RoundingMode.HALF_EVEN);
 
             int newPaymentId = paymentRepository.getLastPaymentId() + 1;
             Payment payment = new Payment(email, method, newPaymentId, totalPayment, "membership");
             paymentRepository.addPayment(payment);
 
-            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. "+method+"card has been charged $"+String.valueOf(remainingPayment)+"."; 
+            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. "+method+"card has been charged $"+String.valueOf(bd)+"."; 
         } catch (RuntimeException exception) {
             return "error: " + exception.getMessage();
         }
