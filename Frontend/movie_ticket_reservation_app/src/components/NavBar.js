@@ -128,9 +128,9 @@ function NavBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
-                <MenuItem onClick={handleSubscriptionRenew}>
+                {/* <MenuItem onClick={handleSubscriptionRenew}>
                   Subscription Renew
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 <MenuItem component={Link} to="/dashboard">
                   Dashboard

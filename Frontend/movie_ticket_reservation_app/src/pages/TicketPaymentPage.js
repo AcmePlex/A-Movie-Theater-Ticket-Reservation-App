@@ -61,7 +61,7 @@ function TicketPaymentPage() {
                 const response = await ticketPayment(paymentData);
 
                 console.log(response);
-                setResponseMessage(response|| 'Your payment has been processed successfully.'); // Set response message
+                setResponseMessage(data.message+"\n"+response|| 'Your payment has been processed successfully.'); // Set response message
                 setSnackbarMessage('Payment successful. Confirmation Email Set');
                 setSnackbarSeverity('success');
                 setSnackbarOpen(true);

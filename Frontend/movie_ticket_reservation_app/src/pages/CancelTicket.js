@@ -16,7 +16,6 @@ function CancelTicketPage() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-    const [responseMessage, setResponseMessage] = useState(''); // Add state for response message
 
     const issue = async () => {
         // Implement the refund logic here
@@ -27,7 +26,6 @@ function CancelTicketPage() {
             if (data?.error) {
                 setErrorDialogOpen(true);
             } else if (data?.success) {
-                //const dataCredit = await issueRefund(ticketNumber);
                 setSnackbarMessage('Ticket canceled successfully. Confirmation email sent.');
                 setSnackbarSeverity('success');
                 setSnackbarOpen(true);
@@ -82,8 +80,8 @@ function CancelTicketPage() {
                 <DialogTitle>Cancellation success</DialogTitle>
                 <DialogContent>
                     {
-                        loading ? <Typography>Processing...</Typography> : <DialogContentText>
-                        {response?.message}
+                        <DialogContentText>
+                        {response}
                         {response?.emailSent && <Typography>An email notification has been sent to you.</Typography>}
                     </DialogContentText>
                     }
@@ -95,11 +93,11 @@ function CancelTicketPage() {
                 </DialogActions>
             </Dialog>
             <Dialog open={errorDialogOpen} onClose={handleErrorDialogClose}>
-                <DialogTitle>Cancellation failed</DialogTitle>
+                <DialogTitle>Cancellation Failed</DialogTitle>
                 <DialogContent>
                     {
-                        loading ? <Typography>Processing...</Typography> : <DialogContentText>
-                        {response?.message}
+                        <DialogContentText>
+                        {response}
                     </DialogContentText>
                     }
                 </DialogContent>

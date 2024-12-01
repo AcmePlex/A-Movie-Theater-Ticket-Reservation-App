@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio, Snackbasr, Alert  } from '@mui/material';
+import { Box, Typography, Container, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, RadioGroup, FormControlLabel, Radio, Snackbar, Alert  } from '@mui/material';
 import { addCard, createRegisteredUser, membershipPayment } from '../api/Services';
 
 function UserRegistration() {
@@ -20,6 +20,10 @@ function UserRegistration() {
 
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
     const handleSubmit = () => {
         if (!email || !name || !password || !address) {
@@ -62,13 +66,16 @@ function UserRegistration() {
 
         try {
             const response = await createRegisteredUser(registrationData);
+            console.log(response);
             if (response?.success) {
                 const paymentResponse = await membershipPayment(email, method);
                 const cardResponse = await addCard(cardData);
-                console.log(response);
                 console.log(paymentResponse);
                 console.log(cardResponse);
-                setMessage(" "+email+" account Registered! "+paymentResponse);
+                setMessage(" "+email+" account Registered! \n "+paymentResponse);
+                setSnackbarMessage('Payment successful. Confirmation Email Set');
+                setSnackbarSeverity('success');
+                setSnackbarOpen(true);
                 setDialogOpen(true);
                 setConfirmationDialogOpen(false);
             } else if (response?.duplicate) {
@@ -82,6 +89,10 @@ function UserRegistration() {
 
     const handlePaymentDialogClose = () => {
         setDialogOpen(false);
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
     };
 
     return (
@@ -233,6 +244,11 @@ function UserRegistration() {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 }
