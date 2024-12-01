@@ -100,7 +100,7 @@ export const createRegisteredUser = async (data) => {
 }
 
 export const subscriptionRenew = async (data) => {
-  const response = await api.post(`/api/registered-users/createregistereduser`, data);
+  const response = await api.post(`/api/registered-users/subcriptionRenew`, data);
   console.log(response.data);
   return response.data;
 }

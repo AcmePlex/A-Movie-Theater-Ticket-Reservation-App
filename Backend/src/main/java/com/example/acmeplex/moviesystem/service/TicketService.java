@@ -59,10 +59,12 @@ public class TicketService {
             }
 
             StringBuilder ticketNumberList = new StringBuilder();
+            StringBuilder ticketNumbers= new StringBuilder();
             // book tickets
             for(Integer showtimeSeatId : showtimeSeats) {
                 String ticketNumber = ticketRepository.getTicketNumber(showtimeSeatId);
                 ticketNumberList.append(ticketNumber).append("\n");
+                ticketNumbers.append(ticketNumber).append("\t");
                 System.out.println(ticketNumber);
                 int result1 = theatreShowtimeSeatRepository.updateSeatAvailability(showtimeSeatId, false);
                 int result2 = ticketRepository.updateTicketReservation(showtimeSeatId, email, Timestamp.valueOf(LocalDateTime.now()));
@@ -82,7 +84,8 @@ public class TicketService {
 
             String ticketForm = showtimeSeats.size()>1?"tickets":"ticket";
             response.put("success", true);
-            response.put("message", String.format("%d %s booked successfully.", showtimeSeats.size(), ticketForm));
+            String messages=ticketNumbers.toString()+" ticket booked successfully.";
+            response.put("message", messages);
             return response;
         } catch (RuntimeException exception) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

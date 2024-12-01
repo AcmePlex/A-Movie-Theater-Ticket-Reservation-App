@@ -99,7 +99,7 @@ public class PaymentService {
             }
 
            
-            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. Remaining Payment of $"+String.valueOf(remainingPayment)+" charged to " + ticketPaymentDTO.getMethod()+ " card. ";         
+            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. "+ticketPaymentDTO.getMethod()+"card has been charged $"+String.valueOf(remainingPayment)+".";         
         } catch (RuntimeException exception) {
             return "error: " + exception.getMessage();
         }
@@ -139,7 +139,7 @@ public class PaymentService {
             Payment payment = new Payment(email, method, newPaymentId, totalPayment, "membership");
             paymentRepository.addPayment(payment);
 
-            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. Remaining Payment of $"+String.valueOf(remainingPayment)+" charged to " + method+ " card. "; 
+            return "$"+String.valueOf(totalPayment)+" processed successfully. "+String.valueOf(creditUsed)+" credit points used. "+method+"card has been charged $"+String.valueOf(remainingPayment)+"."; 
         } catch (RuntimeException exception) {
             return "error: " + exception.getMessage();
         }

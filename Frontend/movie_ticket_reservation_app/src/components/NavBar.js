@@ -132,9 +132,9 @@ function NavBar() {
                   Subscription Renew
                 </MenuItem> */}
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                <MenuItem component={Link} to="/dashboard">
+                {/* <MenuItem component={Link} to="/dashboard">
                   Dashboard
-                </MenuItem>
+                </MenuItem> */}
               </Menu>
             </>
           ) : (
