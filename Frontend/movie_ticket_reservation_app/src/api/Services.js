@@ -99,6 +99,12 @@ export const createRegisteredUser = async (data) => {
   return response.data;
 }
 
+export const subscriptionRenew = async (data) => {
+  const response = await api.post(`/api/registered-users/createregistereduser`, data);
+  console.log(response.data);
+  return response.data;
+}
+
 export const membershipPayment = async (email, method) => {
   const response = await api.put(`/membershippayment/${email}/method/${method}`);
   return response.data;

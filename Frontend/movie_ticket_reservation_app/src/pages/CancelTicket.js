@@ -26,7 +26,6 @@ function CancelTicketPage() {
             if (data?.error) {
                 setErrorDialogOpen(true);
             } else if (data?.success) {
-                //const dataCredit = await issueRefund(ticketNumber);
                 setSnackbarMessage('Ticket canceled successfully. Confirmation email sent.');
                 setSnackbarSeverity('success');
                 setSnackbarOpen(true);
